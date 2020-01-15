@@ -11,14 +11,10 @@ public class PracticeBasic {
 		OperationProgram op = new OperationProgram(num1,num2);
 	}
 	
-	public static void print(Object o) {
-		System.out.print(o);
-	}
-	
 	static class OperationProgram{
-		private int num1, num2;
+		static private int num1, num2;
 		
-		public OperationProgram(int num1, int num2) {
+		OperationProgram(int num1, int num2) {
 			this.num1 = num1;
 			this.num2 = num2;
 			addition();
@@ -27,20 +23,23 @@ public class PracticeBasic {
 			division();
 		}
 		
-		public void addition() {
+		static public void addition() {
 			print(num1 + " + " + num2 + " = " + (num1+num2)+"\n");
 		}
 		
-		public void sub() {
+		static public void sub() {
 			print(num1 + " - " + num2 + " = " + (num1-num2)+"\n");
 		}
 		
-		public void mul() {
+		static public void mul() {
 			print(num1 + " * " + num2 + " = " + (num1*num2)+"\n");
 		}
 		
-		public void division() {
+		static public void division() {
 			print(num1 + " / " + num2 + " = " + num1/num2+"\n");
 		}
+	}
+	public static void print(Object o) {
+		System.out.print(o);
+	}
 }
-

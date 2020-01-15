@@ -3,30 +3,17 @@ package practice;
 //Practicing Inner classes 
 public class ClassPractice {
 	public static void main(String []args) {
-//		Outer o = new Outer();
-//		Outer.Inner in = o.new Inner();
-//		in.output();
-//		MLOuter o = new MLOuter();
-//		o.printMe();
-		
-		//Inner.printInner(); //It's just like a static member of outside class
-		
-//		Demo demo = new Demo();
-//		demo.show();
-//		print("\n");
-//		InnerDemo indemo = new InnerDemo();
-//		indemo.demo.show();
-		InnerfaceDemo inF = new InnerfaceDemo();
-		inF.h.show();
+		OutHello oh = new OutHello();
+		oh.hello.show();
 	}
 	public static void print(Object o) {
 		System.out.print(o);
 	}
 	
 	//Static nested classes
-    static class Inner{
-    	public static void printInner() {
-    		print("this is from Inner");
+    static class StaticInner{
+    	static void printMe() {
+    		print("this is from static inner");
     	}
     }
 	
@@ -35,70 +22,49 @@ public class ClassPractice {
 
 //Nested Inner class
 class Outer{
-	private String c = "Outer c";
-	String b = "public";
-	static int k = 1;
-	
-	public String getC() {
-		return c;
-	}
+	private int a = 12;
 	class Inner{
-		private String a = "Inner c";
-		Outer o;
-		public void output(){
-			System.out.print(c);
+		private int b = 10;
+		void printMe() {
+			System.out.print(a);
 		}
 	}
 }
 
 //Method Local Inner classes
-class MLOuter{
-	int x = 10;
-	public void printMe() {
-		System.out.print("from Outer\n");
-		final int y = 20;
-		//Local inner class cannot access non-final local variable 
-		//till JDK 1.7. Since JDK 1.8, it is possible to access the non-final 
-		//local variable in method local inner class.
-
+class MethodLocalOuter{
+	void printMe() {
 		class Inner{
-			void printMe() {
-				System.out.print("from inner\n");
-				System.out.print(x+"\n");
-				System.out.print(y+"\n");
-			}
+			private int b = 10;
 		}
-		
-		Inner in = new Inner();
-		in.printMe();
+		System.out.print(new Inner().b);
 	}
 }
+
+
 //Anonymous inner classes
 //1.As subclass of specified type
-class Demo{
-	void show() {
-		System.out.print("this is from outer demo");
-	}
-}
-
-class InnerDemo{
-	Demo demo = new Demo() {
+class subOuter{
+	subInner sb = new subInner() {
 		void show() {
-			System.out.print("this is from inner demo");
+			System.out.print("This is from subInner");
 		}
 	};
+}
+class subInner{
+	void show() {
+		System.out.print("This is from subInner");
+	}
 }
 
 //2.As implementer of the specified interface
 interface Hello{
 	void show();
 }
-
-class InnerfaceDemo{
-	 Hello h = new Hello() {
-	  public void show() {
-		  System.out.print("From Innerface demo");
-	  }
+class OutHello{
+	Hello hello = new Hello() {
+		public void show() {
+			System.out.print("this is from outerHello");
+		}
 	};
 }
-
