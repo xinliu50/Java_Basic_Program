@@ -6,9 +6,11 @@ public class PracticeBasic {
 		print("Input first number:");
 		Scanner sc = new Scanner(System.in);
 		int num1 = sc.nextInt();
-		print("Input second number:");
-		int num2 = sc.nextInt();
-		OperationProgram op = new OperationProgram(num1,num2);
+//		print("Input second number:");
+//		int num2 = sc.nextInt();
+		//OperationProgram op = new OperationProgram(num1,num2);
+		
+		Program pr = new Program(num1);
 	}
 	
 	static class OperationProgram{
@@ -41,5 +43,13 @@ public class PracticeBasic {
 	}
 	public static void print(Object o) {
 		System.out.print(o);
+	}
+}
+
+class Program{
+	Program(int num){
+		for(int i = 1; i <= 10; i ++) {
+			System.out.print(num + " * " + i + " = " + num * i + "\n");
+		}
 	}
 }
