@@ -7,7 +7,12 @@ public class DataStructure {
 		q.enqueue(22);
 		q.enqueue(21);
 		q.enqueue(123);
-
+		
+		printQueue(q);
+		print("\n");
+		printReverseQueue(q);
+		q.dequeue();
+		print("\n");
 		printQueue(q);
 		print("\n");
 		printReverseQueue(q);
@@ -90,7 +95,7 @@ class Queue{
 		this.tail = null;
 	}
 	
-	Node enqueue(int value) {
+	void enqueue(int value) {
 		Node newNode = new Node(value);
 		if(this.head == null) {
 			this.head = newNode;
@@ -100,8 +105,16 @@ class Queue{
 			newNode.prev = this.tail;
 			this.tail = newNode;
 		}
-		return this.head;
+		//return this.head;
 	}
 	
-	
+	Node dequeue(){
+		if(this.head == null) {
+			return null;
+		}
+		Node temp = this.tail;
+		this.tail = this.tail.prev;
+		this.tail.next = null;
+		return temp;
+	}
 }
