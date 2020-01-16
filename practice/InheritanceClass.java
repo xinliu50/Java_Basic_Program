@@ -1,10 +1,10 @@
 package practice;
 
-public class InheritanceClass extends Product {
+public class InheritanceClass{
 	
 	public static void main(String []args) {
 		Labtop mac = new Labtop();
-		mac.setProductDetail("mac", "1223", 800, "intel core 5");
+		mac.setProductDetail(800, "intel core 5");
 		mac.printProduct();
 	}
 	public static void print(Object o) {
@@ -44,6 +44,15 @@ class Labtop extends Product{
 		this.id = id;
 		this.price = price;
 		this.CPU = CPU;
+	}
+	
+	//overloading
+	String setProductDetail(double price, String CPU) {
+		this.name = name;
+		this.id = id;
+		this.price = price;
+		this.CPU = CPU;
+		return name;
 	}
 	//overriding
 	void printProduct() {
