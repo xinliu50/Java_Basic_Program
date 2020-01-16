@@ -2,13 +2,15 @@ package practice;
 
 public class DataStructure {
 	public static void main(String []args) {
-		SingleLinkedList stack = new SingleLinkedList();
-		stack.push(12);
-		
-		printStack(stack);
+		Queue q = new Queue();
+		q.enqueue(2);
+		q.enqueue(22);
+		q.enqueue(21);
+		q.enqueue(123);
+
+		printQueue(q);
 		print("\n");
-		stack.pop();
-		printStack(stack);
+		printReverseQueue(q);
 	}
 	public static void print(Object o) {
 		System.out.print(o);
@@ -19,6 +21,20 @@ public class DataStructure {
 		while(temp != null) {
 			print(temp.value + " -> ");
 			temp = temp.next;
+		}
+	}
+	public static void printQueue(Queue q) {
+		Node temp = q.head;
+		while(temp != null) {
+			print( temp.value + "->");
+			temp = temp.next;
+		}
+	}
+	public static void printReverseQueue(Queue q) {
+		Node temp = q.tail;
+		while(temp != null) {
+			print( temp.value + "<-");
+			temp = temp.prev;
 		}
 	}
 }
@@ -65,29 +81,27 @@ class Node{
 		this.prev = null;
 	}
 }
-class DoubleLinkedList{
-	Node front;
-	Node back;
+class Queue{
+	Node head;
+	Node tail;
 	
-	DoubleLinkedList(){
-		this.front = null;
-		this.back = null;
+	Queue(){
+		this.head = null;
+		this.tail = null;
 	}
 	
 	Node enqueue(int value) {
 		Node newNode = new Node(value);
-		
+		if(this.head == null) {
+			this.head = newNode;
+			this.tail = newNode;
+		}else {
+			this.tail.next = newNode;
+			newNode.prev = this.tail;
+			this.tail = newNode;
+		}
+		return this.head;
 	}
 	
 	
 }
-//class Queue{
-//	
-//	
-//	int enqueue(int value) {
-//		
-//	}
-//	int dequeue() {
-//		
-//	}
-//}
