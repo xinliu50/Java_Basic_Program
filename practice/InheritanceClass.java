@@ -54,6 +54,7 @@ class Labtop extends Product{
 		this.CPU = CPU;
 		return name;
 	}
+	
 	//overriding
 	void printProduct() {
 		System.out.print("Name: " + name + "\n");
@@ -62,5 +63,4 @@ class Labtop extends Product{
 		System.out.print("CPU: " + CPU + "\n");
 		
 	}
-	
 }
