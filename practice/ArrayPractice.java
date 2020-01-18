@@ -3,41 +3,48 @@ package practice;
 public class ArrayPractice {
 	public static void main(String []args)throws CloneNotSupportedException {
 		Array arr = new Array();
-		//arr.print();
+	
 		arr.add(1);
 		arr.add(12);
 		arr.add(31);
 		arr.add(10);
 		arr.add(110);
-		//arr.print();
 		arr.add(141);
 		arr.add(10001);
-		//arr.print();
 		arr.add(3,70);
 		arr.print();
-		//arr.clear();
-		//arr.print();
-		Array newArr = (Array)arr.cloneArray();
-		newArr.print();
+		var myarr = arr.toArray();
+		printArray(myarr);
+		print("\n");
+		print(arr.myArray.length);
+		print(arr.myArray);
+		arr.trimToSize();
+		print("\n");
+		print(arr.myArray.length);
+		print(arr.myArray);
 		
-		Array secondNewArr = (Array)newArr.clone();
-		secondNewArr.print();
 		
-		newArr.clear();
-		newArr.print();
-		secondNewArr.print();
-
 	}
 	public static void print(Object o) {
 		System.out.print(o);
 	}
-	
+	public static void printArray(int[] a) {
+		print("[");
+		for(int i = 0; i < a.length; i++) {
+			if(i == a.length-1) {
+				print(a[i] + "]");
+			}
+			else {
+				print(a[i] + ", ");
+			}
+		}
+	}
 	
 }
 
 class Array implements Cloneable{
-	private int[] myArray;
-	private int size;
+	public  int[] myArray;
+	public int size;
 	
 	Array(){
 		myArray = new int[10];
@@ -109,5 +116,58 @@ class Array implements Cloneable{
 	@Override
 	public Object clone() throws CloneNotSupportedException{
 		return super.clone();
+	}
+	boolean contains(int num) {
+		for(int i = 0; i < size; i ++) {
+			if(myArray[i] == num)
+				return true;
+		}
+		return false;
+	}
+	int get(int index) {
+		if(index < 0 || index >= size) {
+			throw new IllegalArgumentException("illegal index");
+		}
+		return myArray[index];
+	}
+	int indexOf(int num) {
+		for(int i = 0; i < size; i ++) {
+			if(myArray[i] == num)
+				return i;
+		}
+		return -1;
+	}
+	int lastIndexOf(int num) {
+		for(int i = size-1; i >= 0; i --) {
+			if(myArray[i] == num)
+				return i;
+		}
+		return -1;
+	}
+	int remove(int index) {
+		if(index < 0 || index >= size) {
+			throw new IllegalArgumentException("Illegal index");
+		}
+		int temp = myArray[index];
+		for(int i = index; i < size-1; i++) {
+			myArray[i] = myArray[i+1];
+		}
+		size --;
+		return temp;
+	}
+	int[] toArray() {
+		int[] newArray = new int[size];
+		for(int i = 0; i < size; i++) {
+			newArray[i] = myArray[i];
+		}
+		
+		return newArray;
+	}
+	void trimToSize() {
+		int[] newArr = new int[size];
+		for(int i = 0; i < size; i++) {
+			newArr[i] = myArray[i];
+		}
+		myArray = newArr;
 	}
 }
