@@ -1,7 +1,7 @@
 package practice;
 
 public class ArrayPractice {
-	public static void main(String []args) {
+	public static void main(String []args)throws CloneNotSupportedException {
 		Array arr = new Array();
 		//arr.print();
 		arr.add(1);
@@ -19,21 +19,23 @@ public class ArrayPractice {
 		//arr.print();
 		Array newArr = (Array)arr.cloneArray();
 		newArr.print();
-		print(arr+"\n");
-		print(newArr);
 		
-		arr.clear();
-		arr.print();
+		Array secondNewArr = (Array)newArr.clone();
+		secondNewArr.print();
+		
+		newArr.clear();
 		newArr.print();
-		
+		secondNewArr.print();
+
 	}
 	public static void print(Object o) {
 		System.out.print(o);
 	}
 	
+	
 }
 
-class Array{
+class Array implements Cloneable{
 	private int[] myArray;
 	private int size;
 	
@@ -103,5 +105,9 @@ class Array{
 		//3.shallow copy
 		newArray = this;
 		return newArray;
+	}
+	@Override
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
 	}
 }
