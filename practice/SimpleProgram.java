@@ -4,11 +4,13 @@ import java.util.*;
 //takes 3 numbers from user and print the average
 public class SimpleProgram {
 	public static void main(String []args) {
-		addBinary();
+		//addBinary();
+
+
 	}
 	public static void print(Object o) {
 		System.out.print(o);
-	}
+	}	
 	public static void ave() {
 		Scanner sc = new Scanner(System.in);
 		print("enter your first number: \n");

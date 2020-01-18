@@ -1,21 +1,28 @@
 package practice;
 
+import java.util.*;
+
 public class DataStructure {
 	public static void main(String []args) {
-		Queue q = new Queue();
-		q.enqueue(2);
-		q.enqueue(22);
-		q.enqueue(21);
-		q.enqueue(123);
+		ArrayList<Integer> ls = new ArrayList<>();
+		ls.add(1);
+		ls.add(12);
+		ls.add(13);
+		ls.add(15);
+		ls.add(21);
+		printList(ls);
+		print("\n");
+		var temp = (ArrayList<Integer>)ls.clone();
+		printList(temp);
+		print("\n");
+		//temp = (ArrayList<Integer>)ls.clone();
+		//printList(temp);
+		ls.clear();
+		printList(temp);
+		print("\n");
+		printList(ls);
+
 		
-		printQueue(q);
-		print("\n");
-		printReverseQueue(q);
-		q.dequeue();
-		print("\n");
-		printQueue(q);
-		print("\n");
-		printReverseQueue(q);
 	}
 	public static void print(Object o) {
 		System.out.print(o);
@@ -40,6 +47,11 @@ public class DataStructure {
 		while(temp != null) {
 			print( temp.value + "<-");
 			temp = temp.prev;
+		}
+	}
+	public static void printList(List<Integer> ls) {
+		for(int num : ls) {
+			print(num + ", ");
 		}
 	}
 }
@@ -98,8 +110,8 @@ class Queue{
 	void enqueue(int value) {
 		Node newNode = new Node(value);
 		if(this.head == null) {
-			this.head = newNode;
-			this.tail = newNode;
+			this.head = this.tail = newNode;
+			
 		}else {
 			this.tail.next = newNode;
 			newNode.prev = this.tail;
