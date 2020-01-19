@@ -13,12 +13,12 @@ public class InheritanceClass{
 
 }
 
-class Product{
+class Product1{
 	String name;
 	String id;
 	double price;
 	
-	Product(){
+	Product1(){
 		System.out.print("This is from product\n");
 	}
 	
@@ -35,7 +35,7 @@ class Product{
 	}
 }
 
-class Labtop extends Product{
+class Labtop extends Product1{
 	String CPU;
 	
 	//overloading

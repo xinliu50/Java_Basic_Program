@@ -14,14 +14,21 @@ public class ArrayPractice {
 		arr.add(3,70);
 		arr.print();
 		var myarr = arr.toArray();
-		printArray(myarr);
+		//printArray(myarr);
 		print("\n");
-		print(arr.myArray.length);
-		print(arr.myArray);
-		arr.trimToSize();
-		print("\n");
-		print(arr.myArray.length);
-		print(arr.myArray);
+		
+		Array arr1 = new Array();
+		
+		arr1.add(111);
+		arr1.add(122);
+		arr1.add(3111);
+		arr1.add(1110);
+		arr1.add(15510);
+		arr1.add(16641);
+		arr1.add(107001);
+		arr.addAll(arr1);
+		
+		arr.print();
 		
 		
 	}
@@ -169,5 +176,12 @@ class Array implements Cloneable{
 			newArr[i] = myArray[i];
 		}
 		myArray = newArr;
+	}
+	boolean addAll(Array arr) {
+	
+		for(int i = 0; i < arr.size; i++) {
+			add(arr.get(i));
+		}
+		return true;
 	}
 }
