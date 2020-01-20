@@ -3,12 +3,9 @@ import java.util.*;
 
 public class LinkedHashMapPractice {
 	public static void main(String []args) {
-		Map<Integer, String> ls = new LinkedHashMap<>();
-		ls.put(1, "a");
-		ls.put(2, "b");
-		ls.put(3, "c");
-		ls.put(4, "d");
-		print(ls);
+		print(Integer.parseInt("11",10));
+		
+		
 	}
 
 	public static void print(Object o) {
