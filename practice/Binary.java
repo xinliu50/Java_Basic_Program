@@ -1,5 +1,7 @@
 package practice;
 
+import java.util.ArrayList;
+
 public class Binary {
 	public static void main(String []args) {
 		//convert a string to binary and save it to the integer
@@ -17,12 +19,22 @@ public class Binary {
 		print("binaryToDecimal: " + 1 + " is " + decimal1);
 		
 		String myBinaryString = DecimalToBinaryIntoString(10);
-		print("DecimalToBinaryIntoString: " + 10 + "is " + myBinaryString);
+		print("DecimalToBinaryIntoString: " + 10 + " is " + myBinaryString);
 		String myBinaryString1 = DecimalToBinaryIntoString(0);
-		print("DecimalToBinaryIntoString: " + 0 + "is " + myBinaryString1);
-		String myBinaryString2 = DecimalToBinaryIntoString(3);
-		print("DecimalToBinaryIntoString: " + 3 + "is " + myBinaryString2);
+		print("DecimalToBinaryIntoString: " + 0 + " is " + myBinaryString1);
+		
+		
+		int result = DecimalToBinaryIntoNumber(10);
+		print("DecimalToBinaryIntoNumber: " + 10 + " is " + result);
+		int result1 = DecimalToBinaryIntoNumber(1);
+		print("DecimalToBinaryIntoNumber: " + 1 + " is " + result1);
+		
+		int NonString = DecimalToBinaryIntoNumberNonString(10);
+		print("DecimalToBinaryIntoNumberNonString: " + 10 + " is " + NonString);
+		int NonString1 = DecimalToBinaryIntoNumberNonString(1);
+		print("DecimalToBinaryIntoNumberNonString: " + 1 + " is " + NonString1);
 
+	
 
 		
 	}
@@ -54,5 +66,27 @@ public class Binary {
 			myBinaryString += result.charAt(i);
 		}
 		return myBinaryString;
+	}
+	public static int DecimalToBinaryIntoNumber(int decimal) {
+		//using strings
+		String temp = DecimalToBinaryIntoString(decimal);
+		int result = 0;
+
+		result = Integer.parseInt(temp);
+		return result;
+	}
+	//not using strings
+	public static int DecimalToBinaryIntoNumberNonString(int decimal) {
+		var ls = new ArrayList<Integer>();
+	
+		while(decimal != 0) {
+			ls.add(decimal%2);
+			decimal = decimal/2;
+		}
+		int result = 0;
+		for(int i = 0; i < ls.size(); i++) {
+			result += ls.get(i) * Math.pow(10,i);
+		}
+		return result;
 	}
 }
