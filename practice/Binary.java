@@ -37,10 +37,11 @@ public class Binary {
 		print("TwoBinarySum: 111 and 100 is: " + TwoBinarySum(111,100));
 		print("TwoBinarySum: 111111 and 100 is: " + TwoBinarySum(111111,100));
 		
-		print("TwoBinarySum taking Strings as input: 1111, 1000 sum is " + TwoBinarySum("1111","1000"));
+		print("TwoBinarySum taking Strings as input: 111, 100 sum is " + TwoBinarySum("111","100"));
 		print("TwoBinarySum taking Strings as input: 1111, 111 sum is " + TwoBinarySum("1111","111"));
 
-	}
+		
+ 	}
 	public static void print(Object o) {
 		System.out.println(o);
 	}
@@ -107,16 +108,11 @@ public class Binary {
 			int q = i < len2 ? str2.charAt(len2-1-i) - '0' : 0;
 			int sum = q + p + carry;
 			carry = sum/2;
-			temp += sum%2;
+			temp = sum%2 + temp;
 		}
-		if(carry == 1) {
-			temp += "1";
-		}
-		String result = "";
-		for(int i = temp.length()-1; i >= 0; i--) {
-			result += temp.charAt(i);
-		}
-		return Integer.parseInt(result);
+		temp = carry == 1 ? "1" + temp : temp;
+		
+		return Integer.parseInt(temp);
 	}
 	public static String TwoBinarySum(String num1, String num2) {
 		int len1 = num1.length();
@@ -129,15 +125,10 @@ public class Binary {
 			int q = i < len2 ? num2.charAt(len2-1-i) - '0' : 0;
 			int num = q + p + carry;
 			carry = num/2;
-			temp += num%2;
+			temp = num%2 + temp;
 		}
-		if(carry == 1) {
-			temp += "1";
-		}
-		String result = "";
-		for(int i = temp.length()-1; i >= 0; i --) {
-			result += temp.charAt(i);
-		}
-		return result;
+		temp = carry == 1 ? "1" + temp : temp;
+	
+		return temp;
 	}
 }
