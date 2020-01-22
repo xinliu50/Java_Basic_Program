@@ -107,6 +107,7 @@ public class ImageSmoother {
 		
 		for(int i = 0; i < M.length; i ++) {
 			for(int j = 0; j < M[i].length; j++) {
+				count = 0;
 				for(int ni = i - 1; ni <= i + 1; ni ++) {
 					for(int nj = j - 1; nj <= j + 1; nj ++) {
 						if( ni >= 0 && ni < row && nj >= 0 && nj < col) {
