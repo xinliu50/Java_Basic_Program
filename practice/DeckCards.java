@@ -1,6 +1,6 @@
 package practice;
 
-/*In a deck of cards, each card has an integer written on it.
+/*In a deck of cards, each card has an integer written on it
 
 Return true if and only if you can choose X >= 2 such that it is possible to split the entire deck into 1 or more groups of cards, where:
 
@@ -41,19 +41,31 @@ Note:
 import java.util.*;
 public class DeckCards {
 	public static void main(String[]args) {
-		
+		int[] cards = {1,1,2,2,2,2};
+		print(hasGroupsSizeX(cards));
 	}
 	public static void print(Object o) {
 		System.out.print(o);
 	}
 	public static boolean hasGroupsSizeX(int[] deck) {
-		Map<Integer, Integer> map = new HashMap<>();
+		var map = new HashMap<Integer, Integer>();
 		for(int i : deck) {
-			map.compute(i, (key,value) -> value == null ? 0 : value ++);
+			if(map.containsKey(i))
+				map.put(i,map.get(i)+1);
+			else
+				map.put(i,1);
 		}
-		do {
-			`
-		}while()
+		int g = -1;
+		for(int val : map.values()) {
+			if(g == -1)
+				g = val;
+			else
+				g = gcd(g,val);
+		}
+		return g >= 2;
+	}
+	public static int gcd(int x, int y) {
+		return x == 0 ? y : gcd(y%x, x);
 	}
 
 }
