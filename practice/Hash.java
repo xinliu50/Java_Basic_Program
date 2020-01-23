@@ -42,7 +42,7 @@ public class Hash {
 
 
 class HashTable{
-
+	
 	ArrayList<Pair>[] keyMap;
 	
 	HashTable(int size){
@@ -99,8 +99,7 @@ class HashTable{
 			}
 		}
 		return values;
-	}
-	
+	}	
 }
 class Pair{
 	private String key;
