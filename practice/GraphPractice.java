@@ -3,40 +3,51 @@ import java.util.*;
 public class GraphPractice {
 	public static void main(String[]args) {
 		Graph g = new Graph(4);
+//		g.addEdge(0, 1); 
+//        g.addEdge(0, 2); 
+//        g.addEdge(1, 2); 
+//        g.addEdge(2, 0); 
+//        g.addEdge(2, 3); 
+//        g.addEdge(3, 3); 
+//        println("seach from 0:");
+//		g.DFS();
+//		print("\n");
+//		println("seach from 2:");
+//		g.DFS(2);
+//		print("\n");
+//		println("seach from 1:");
+//		g.DFS(1);
+//		print("\n");
+//		println("seach from 3:");
+//		g.DFS(3);
+//		print("\n");
+//		println("DFSAll:");
+//		g.DFSAll();
+//		print("\n");
+//		println("DFS with stack implementation:");
+//		println("seach from 0:");
+//		g.DFSStack(0);
+//		print("\n");
+//		println("seach from 2:");
+//		g.DFSStack(2);
+//		print("\n");
+//		println("seach from 1:");
+//		g.DFSStack(1);
+//		print("\n");
+//		println("seach from 3:");
+//		g.DFSStack(3);
+//		print("\n");
+		
 		g.addEdge(0, 1); 
         g.addEdge(0, 2); 
         g.addEdge(1, 2); 
         g.addEdge(2, 0); 
         g.addEdge(2, 3); 
         g.addEdge(3, 3); 
-        println("seach from 0:");
-		g.DFS();
-		print("\n");
-		println("seach from 2:");
-		g.DFS(2);
-		print("\n");
-		println("seach from 1:");
-		g.DFS(1);
-		print("\n");
-		println("seach from 3:");
-		g.DFS(3);
-		print("\n");
-		println("DFSAll:");
-		g.DFSAll();
-		print("\n");
-		println("DFS with stack implementation:");
-		println("seach from 0:");
-		g.DFSStack(0);
-		print("\n");
-		println("seach from 2:");
-		g.DFSStack(2);
-		print("\n");
-		println("seach from 1:");
-		g.DFSStack(1);
-		print("\n");
-		println("seach from 3:");
-		g.DFSStack(3);
-		print("\n");
+        
+        println("BFS: ");
+        g.BFSuntil(2);
+  
 		
 	}
 	public static void print(Object o) {
@@ -109,9 +120,27 @@ class Graph{
 		}
 	}
 
-//	void BFSuntil(int v, boolean[] visited) {
-//		
-//	}
+	void BFSuntil(int v) {
+		boolean[] visited = new boolean[V];
+		var queue = new LinkedList<Integer>();
+		queue.add(v);
+		visited[v] = true;
+		System.out.print(v + ", ");
+		while(!queue.isEmpty()) {
+			var front = queue.removeFirst();
+			var frontLs = ls[front];
+			for(int i : frontLs) {
+				if(!visited[i]) {
+					queue.add(i);
+					visited[i] = true;
+					System.out.print(i + ", ");
+
+				}
+			}
+			
+		}
+		
+	}
 }
 
 
