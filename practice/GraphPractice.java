@@ -26,7 +26,7 @@ public class GraphPractice {
 		print("\n");
 		println("DFS with stack implementation:");
 		println("seach from 0:");
-		g.DFSStack();
+		g.DFSStack(0);
 		print("\n");
 		println("seach from 2:");
 		g.DFSStack(2);
@@ -84,13 +84,14 @@ class Graph{
             if (visited[i] == false) 
                 DFSuntil(i, visited); 
     } 
-	void DFSuntilStack(int v, boolean []visited, Stack<Integer> stack) {
+	void DFSStack(int v) {
+		boolean []visited = new boolean[V];
+		var stack = new Stack<Integer>();
 		stack.push(v);
 		visited[v] = true;
 		System.out.print(v + ", ");
 		while(!stack.empty()) {
 			int top = stack.peek();
-			
 			LinkedList<Integer> tempLs = ls[top];
 			boolean flag = false;
 			for(int i = 0; i < tempLs.size(); i ++) {
@@ -107,17 +108,10 @@ class Graph{
 			}
 		}
 	}
-	void DFSStack() {
-		boolean []visited = new boolean[V];
-		var stack = new Stack<Integer>();
-		DFSuntilStack(0,visited,stack);
-	}
-	
-	void DFSStack(int v) {
-		boolean []visited = new boolean[V];
-		var stack = new Stack<Integer>();
-		DFSuntilStack(v,visited,stack);
-	}
+
+//	void BFSuntil(int v, boolean[] visited) {
+//		
+//	}
 }
 
 
