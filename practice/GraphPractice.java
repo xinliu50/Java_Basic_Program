@@ -3,11 +3,11 @@ import java.util.*;
 public class GraphPractice {
 	public static void main(String[]args) {
 		Graph g = new Graph(4);
-//		g.addEdge(0, 1); 
-//        g.addEdge(0, 2); 
-//        g.addEdge(1, 2); 
-//        g.addEdge(2, 0); 
-//        g.addEdge(2, 3); 
+		g.addEdge(0, 1); 
+        g.addEdge(0, 2); 
+        g.addEdge(1, 2); 
+        g.addEdge(2, 0); 
+        g.addEdge(2, 3); 
         g.addEdge(3, 3); 
         println("seach from 0:");
 		g.DFS();
@@ -23,6 +23,20 @@ public class GraphPractice {
 		print("\n");
 		println("DFSAll:");
 		g.DFSAll();
+		print("\n");
+		println("DFS with stack implementation:");
+		println("seach from 0:");
+		g.DFSStack();
+		print("\n");
+		println("seach from 2:");
+		g.DFSStack(2);
+		print("\n");
+		println("seach from 1:");
+		g.DFSStack(1);
+		print("\n");
+		println("seach from 3:");
+		g.DFSStack(3);
+		print("\n");
 		
 	}
 	public static void print(Object o) {
@@ -65,16 +79,45 @@ class Graph{
 	}
 	void DFSAll() 
     { 
-        // Mark all the vertices as not visited(set as 
-        // false by default in java) 
         boolean visited[] = new boolean[V]; 
-  
-        // Call the recursive helper function to print DFS traversal 
-        // starting from all vertices one by one 
-        for (int i=0; i<V; ++i) 
+        for (int i = 0; i < V ; ++i) 
             if (visited[i] == false) 
                 DFSuntil(i, visited); 
     } 
+	void DFSuntilStack(int v, boolean []visited, Stack<Integer> stack) {
+		stack.push(v);
+		visited[v] = true;
+		System.out.print(v + ", ");
+		while(!stack.empty()) {
+			int top = stack.peek();
+			
+			LinkedList<Integer> tempLs = ls[top];
+			boolean flag = false;
+			for(int i = 0; i < tempLs.size(); i ++) {
+				if(!visited[tempLs.get(i)]) {
+					visited[tempLs.get(i)] = true;
+					System.out.print(tempLs.get(i)+ ", ");
+					stack.push(tempLs.get(i));
+					flag = true;
+					break;
+				}
+			}
+			if(!flag) {
+				stack.pop();
+			}
+		}
+	}
+	void DFSStack() {
+		boolean []visited = new boolean[V];
+		var stack = new Stack<Integer>();
+		DFSuntilStack(0,visited,stack);
+	}
+	
+	void DFSStack(int v) {
+		boolean []visited = new boolean[V];
+		var stack = new Stack<Integer>();
+		DFSuntilStack(v,visited,stack);
+	}
 }
 
 
