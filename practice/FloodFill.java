@@ -22,13 +22,16 @@ Note:
 The length of image and image[0] will be in the range [1, 50].
 The given starting pixel will satisfy 0 <= sr < image.length and 0 <= sc < image[0].length.
 The value of each color in image[i][j] and newColor will be an integer in [0, 65535].*/
+import java.util.*;
 
 public class FloodFill {
 	public static void main(String []args) {
 		int[][] image = {{1,1,1},{1,1,0},{1,0,1}};
 		printArray(image);
 		print("\n");
-		printArray(floodFill(image,1,1,2));
+		
+		
+		printArray(floodFillStack(image,1,1,2));
 	}
 	public static void print(Object o) {
 		System.out.print(o);
@@ -53,7 +56,6 @@ public class FloodFill {
 	public static void DFS(int[][] image,int color, int sr, int sc, int newColor) {
 		if(image[sr][sc] == color) {	
 			image[sr][sc] = newColor;
-			print("sr: " + sr + " sc: " + sc + "\n");
 			if(sr >= 1) {
 				DFS(image, color, sr-1, sc, newColor);
 			}
@@ -67,5 +69,51 @@ public class FloodFill {
 				DFS(image, color, sr, sc++, newColor);
 			}
 		}
+	}
+	public static int[][] floodFillStack(int[][] image, int sr, int sc, int newColor){
+		var stack = new Stack<MyPair>();
+		int rn = image.length;
+		int cn = image[0].length;
+		int color = image[sr][sc];
+		boolean[][] visited = new boolean [rn][cn];
+		if(color == newColor)
+			return image;
+		stack.push(new MyPair(sr,sc));
+		while(!stack.empty()) {
+			var p = stack.pop();
+			int r = p.getFirst();
+			int c = p.getSecond();
+			visited[r][c] = true;
+			print("r: " + r + " c: " + c + "\n");
+			image[r][c] = newColor;
+			if(r >= 1 && !visited[r-1][c] && image[r-1][c] == color) {
+				stack.push(new MyPair(r-1,c));
+			}
+			if(c >= 1 && !visited[r][c-1] && image[r][c-1] == color) {
+				stack.push(new MyPair(r,c-1));
+			}
+			if(r < rn - 1 && !visited[r+1][c] && image[r+1][c] == color) {
+				stack.push(new MyPair(r+1,c));
+			}
+			if(c < cn - 1 && !visited[r][c+1] && image[r][c+1] == color) {
+				stack.push(new MyPair(r,c+1));
+			}
+		}
+		return image;
+		
+	}
+}
+class MyPair{
+	private int first;
+	private int second;
+	MyPair(int first, int second){
+		this.first = first;
+		this.second = second;
+	}
+	int getFirst() {
+		return this.first;
+	}
+	int getSecond() {
+		return this.second;
 	}
 }
