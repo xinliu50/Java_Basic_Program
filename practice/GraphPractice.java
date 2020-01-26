@@ -125,16 +125,14 @@ class Graph{
 		var queue = new LinkedList<Integer>();
 		queue.add(v);
 		visited[v] = true;
-		System.out.print(v + ", ");
 		while(!queue.isEmpty()) {
 			var front = queue.removeFirst();
 			var frontLs = ls[front];
+			System.out.print(front + ", ");
 			for(int i : frontLs) {
 				if(!visited[i]) {
 					queue.add(i);
 					visited[i] = true;
-					System.out.print(i + ", ");
-
 				}
 			}
 			
