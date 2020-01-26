@@ -52,7 +52,7 @@ public class SymmetricTree {
 		
 		print(t1);
 		//print(isSymmetric(t1));
-		print(isSymmetricLoop(t1));
+		print(isSymmetricBFS(t1));
 		
 	}
 	public static void print(Object o) {
@@ -83,7 +83,7 @@ public class SymmetricTree {
 		var leftList = new ArrayList<Integer>();
 		var rightList = new ArrayList<Integer>();;
 		
-		if(root.left == null && root.right == null)
+		if(root == null || root.left == null && root.right == null)
 			return true;
 		if(root == null || root.left == null || root.right == null)
 			return false;
@@ -138,6 +138,27 @@ public class SymmetricTree {
 		while(itLeft.hasNext() && itRight.hasNext()) {
 			if(itLeft.next() != itRight.next())
 				return false;
+		}
+		return true;
+	}
+	public static boolean isSymmetricBFS(TreeNode root) {
+		var q = new LinkedList<TreeNode>();
+		q.add(root);
+		q.add(root);
+
+		while(!q.isEmpty()) {
+			TreeNode left = q.poll();
+			TreeNode right = q.poll();
+			if(left == null && right == null)
+				continue;
+			if(left == null || right == null)
+				return false;
+			if(left.val != right.val)
+				return false;
+			q.add(left.left);
+			q.add(right.right);
+			q.add(left.right);
+			q.add(right.left);
 		}
 		return true;
 	}
