@@ -168,4 +168,15 @@ class TreeNode{
 	TreeNode left;
 	TreeNode right;
 	TreeNode(int x){ val = x; }
+	public void print(TreeNode tree) {
+		if(tree == null)
+			return;
+		System.out.print(tree.val + ": \n");
+		if(tree.left != null)
+			System.out.print( " left -> " + tree.left.val + "\n");
+		if(tree.right != null)
+			System.out.print( " right -> " + tree.right.val + "\n");
+		print(tree.left);
+		print(tree.right);
+	}
 }
