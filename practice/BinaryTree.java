@@ -2,19 +2,39 @@ package practice;
 
 public class BinaryTree {
 	public static void main(String []args) {
-		BTree bt = new BTree(4);
-		bt.add(6);
-	    bt.add(4);
-	    bt.add(8);
-	    bt.add(3);
-	    bt.add(5);
-	    bt.add(7);
-	    bt.add(9);
-	    
-	   // bt.root.print(bt.root);
-	    print(bt.contains(8));
-	    bt.delete(3);
-	   // bt.root.print(bt.root);
+		BTree tree = new BTree(50); 
+		  
+        /* Let us create following BST 
+              50 
+           /     \ 
+          30      70 
+         /  \    /  \ 
+        20   40  60   80 */
+     
+        tree.add(30); 
+        tree.add(20); 
+        tree.add(40); 
+        tree.add(70); 
+        tree.add(60); 
+        tree.add(80); 
+  
+        System.out.println("Inorder traversal of the given tree"); 
+        tree.root.print(tree.root);
+  
+        System.out.println("\nDelete 20"); 
+        tree.delete(20); 
+        System.out.println("Inorder traversal of the modified tree"); 
+        tree.root.print(tree.root);
+  
+        System.out.println("\nDelete 30"); 
+        tree.delete(30); 
+        System.out.println("Inorder traversal of the modified tree"); 
+        tree.root.print(tree.root);
+  
+        System.out.println("\nDelete 50"); 
+        tree.delete(50); 
+        System.out.println("Inorder traversal of the modified tree"); 
+        tree.root.print(tree.root);
 	}
 	public static void print(Object o) {
 		System.out.print(o);
@@ -54,9 +74,19 @@ class BTree{
 		root = deleteNode(root, val);
 	}
 	TreeNode deleteNode(TreeNode current, int val) {
+		if(current == null)
+			return null;
 		
 		if(current.val == val) {
-			
+			if(current.left == null && current.right == null)
+				return null;
+			if(current.left == null)
+				return current.right;
+			if(current.right == null)
+				return current.left;
+			//have both children
+			current.val = min(current.right);
+			current.right = deleteNode(current.right,current.val);			
 		}
 		//return findNode(current.left,val) || findNode(current.right,val);
 
@@ -65,6 +95,14 @@ class BTree{
 	    else
 	    	current.right = deleteNode(current.right,val);
 	    return current;
+	}
+	int min(TreeNode current) {
+		int min = current.val;
+		while(current.left != null) {
+			min = current.left.val;
+			current = current.left;
+		}
+		return min;
 	}
 	
 }
