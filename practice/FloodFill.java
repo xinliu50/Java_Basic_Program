@@ -63,10 +63,10 @@ public class FloodFill {
 				DFS(image, color, sr, sc-1, newColor);
 			}
 			if(sr < image.length-1) {
-				DFS(image, color, sr++, sc, newColor);
+				DFS(image, color, sr+1, sc, newColor);
 			}
 			if(sc < image[0].length-1) {
-				DFS(image, color, sr, sc++, newColor);
+				DFS(image, color, sr, sc+1, newColor);
 			}
 		}
 	}
@@ -84,7 +84,6 @@ public class FloodFill {
 			int r = p.getFirst();
 			int c = p.getSecond();
 			visited[r][c] = true;
-			print("r: " + r + " c: " + c + "\n");
 			image[r][c] = newColor;
 			if(r >= 1 && !visited[r-1][c] && image[r-1][c] == color) {
 				stack.push(new MyPair(r-1,c));
