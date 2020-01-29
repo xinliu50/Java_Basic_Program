@@ -1,10 +1,14 @@
 package practice;
 
+import java.util.Arrays;
+
 public class ArrayLeetcode {
 	public static void main(String []args) {
-		int []a = {2,3,1,3,2,4,6,7,9,2,19};
-		int []b = {2,1,4,3,9,6};
-		print(relativeSortArray(a,b));
+//		int []a = {2,3,1,3,2,4,6,7,9,2,19};
+//		int []b = {2,1,4,3,9,6};
+//		print(relativeSortArray(a,b));
+		int []a = {9,6,4,2,3,5,7,0,1};
+		print(missingNumber(a));
 	}
 	public static void print(Object o) {
 		System.out.print(o);
@@ -192,5 +196,33 @@ public class ArrayLeetcode {
 	        }
 	        return arr;
 	 }
+	 /*
+	  * Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, 
+	  * find the one that is missing from the array.
+
+		Example 1:
+		
+		Input: [3,0,1]
+		Output: 2
+		Example 2:
+		
+		Input: [9,6,4,2,3,5,7,0,1]
+		Output: 8
+	  * */
+	 
+	   //linear runtime complexity and constant space complexity
+	   public static int missingNumber(int[] nums) {
+		   Arrays.sort(nums);
+		   if(nums[0] != 0)
+			   return 0;
+		   if(nums[nums.length-1] != nums.length)
+			   return nums.length;
+		   for(int i = 1; i < nums.length; i ++) {
+			   int ex = nums[i-1];
+			   if(nums[i] != ex+1)
+				   return ex+1;
+		   }
+		   return -1;
+	   }
 	
 }
