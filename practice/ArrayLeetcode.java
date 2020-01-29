@@ -13,7 +13,12 @@ public class ArrayLeetcode {
 //		print(missingNumberXOR(a));
 		int[] a = {2,2,2,2};
 		print(isMonotonic(a));
-		
+		int birth = 7*60*60*24*365;
+		int death = 13*60*60*24*365;
+		int immigrant = 45*60*60*24*365;
+		print(birth);
+		print(death);
+		print(immigrant);
 	}
 	public static void print(Object o) {
 		System.out.println(o);
@@ -288,9 +293,9 @@ public class ArrayLeetcode {
 		        for(int j = 1; j < A.length; j ++) {
 		        	if(A[j] < A[j-1])
 		        		decFlag = true;
-		        	if(A[j] > A[j-1])
+		        	else if(A[j] > A[j-1])
 		        		incFlag = true;
-	                if(A[j] == A[j-1])
+		        	else if(A[j] == A[j-1])
 	                    sameFlag = true;
 		        }
 		     return (decFlag ^ incFlag) || sameFlag && !(decFlag && incFlag);
