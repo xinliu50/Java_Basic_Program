@@ -8,9 +8,12 @@ public class ArrayLeetcode {
 //		int []a = {2,3,1,3,2,4,6,7,9,2,19};
 //		int []b = {2,1,4,3,9,6};
 //		print(relativeSortArray(a,b));
-		int []a = {9,6,4,2,3,5,7,0,1};
-		print(missingNumber(a));
-		print(missingNumberXOR(a));
+//		int []a = {9,6,4,2,3,5,7,0,1};
+//		print(missingNumber(a));
+//		print(missingNumberXOR(a));
+		int[] a = {2,2,2,2};
+		print(isMonotonic(a));
+		
 	}
 	public static void print(Object o) {
 		System.out.println(o);
@@ -246,5 +249,50 @@ public class ArrayLeetcode {
 		   }
 		   return missing;
 	   }
-	
+	   /*An array is monotonic if it is either monotone increasing or monotone decreasing.
+
+		An array A is monotone increasing if for all i <= j, A[i] <= A[j].  
+		An array A is monotone decreasing if for all i <= j, A[i] >= A[j].
+		
+		Return true if and only if the given array A is monotonic.	
+		Example 1:
+		
+		Input: [1,2,2,3]
+		Output: true
+		Example 2:
+		
+		Input: [6,5,4,4]
+		Output: true
+		Example 3:
+		
+		Input: [1,3,2]
+		Output: false
+		Example 4:
+		
+		Input: [1,2,4,5]
+		Output: true
+		Example 5:
+		
+		Input: [1,1,1]
+		Output: true
+		 
+		
+		Note:
+		
+		1 <= A.length <= 50000
+		-100000 <= A[i] <= 100000*/
+	   	public static boolean isMonotonic(int[] A) {
+	   		if(A.length == 1)
+	            return true;
+	         boolean decFlag = false, incFlag = false, sameFlag = false;
+		        for(int j = 1; j < A.length; j ++) {
+		        	if(A[j] < A[j-1])
+		        		decFlag = true;
+		        	if(A[j] > A[j-1])
+		        		incFlag = true;
+	                if(A[j] == A[j-1])
+	                    sameFlag = true;
+		        }
+		     return (decFlag ^ incFlag) || sameFlag && !(decFlag && incFlag);
+	    }
 }
