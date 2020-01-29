@@ -1,6 +1,7 @@
 package practice;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class ArrayLeetcode {
 	public static void main(String []args) {
@@ -9,9 +10,10 @@ public class ArrayLeetcode {
 //		print(relativeSortArray(a,b));
 		int []a = {9,6,4,2,3,5,7,0,1};
 		print(missingNumber(a));
+		print(missingNumberXOR(a));
 	}
 	public static void print(Object o) {
-		System.out.print(o);
+		System.out.println(o);
 	}
 	public static void print(int[] a) {
 		print("[");
@@ -223,6 +225,26 @@ public class ArrayLeetcode {
 				   return ex+1;
 		   }
 		   return -1;
+	   }
+	   
+	   public static int missingNumberSet(int[] nums) {
+		   var set = new HashSet<Integer>();
+		   for(int i : nums) {
+			   set.add(i);
+		   }
+		   for(int i = 0; i <= nums.length; i ++) {
+			   if(!set.contains(i))
+				   return i;
+		   }
+		   return -1;
+	   }
+	   //XOR
+	   public static int missingNumberXOR(int[] nums) {
+		   int missing = nums.length;
+		   for(int i = 0; i < nums.length; i++) {
+			   missing ^= i ^ nums[i];
+		   }
+		   return missing;
 	   }
 	
 }
