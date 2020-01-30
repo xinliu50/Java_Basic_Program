@@ -3,12 +3,8 @@ package practice;
 public class Training {
 	public static void main(String []args) {
 		
-		System.out.println("In Main");
-		//System.out.println(staticBlock);
-		//staticBlock sh = new staticBlock();
-		//Student123.getStudentCount();//to use static function, does not need objects
-		School s = new School("A",123);
-		s.test();
+		two t = new two();
+		two t1 = new two(2);
 		
 	}
 	public static void print(Object o) {
@@ -81,6 +77,7 @@ class two extends one{
 		System.out.print("this is from child default\n");
 	}
 	two(int i){
+		//super(i);
 		System.out.print("this is from child i constructor\n");
 	}
 }
