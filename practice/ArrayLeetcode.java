@@ -5,20 +5,11 @@ import java.util.HashSet;
 
 public class ArrayLeetcode {
 	public static void main(String []args) {
-//		int []a = {2,3,1,3,2,4,6,7,9,2,19};
-//		int []b = {2,1,4,3,9,6};
-//		print(relativeSortArray(a,b));
-//		int []a = {9,6,4,2,3,5,7,0,1};
-//		print(missingNumber(a));
-//		print(missingNumberXOR(a));
-		Address a = new Address(484,"Brooklyn");
-		
-		String b = a.toString();
-		print(b);
-		
+		int[][] a = {{1,1},{3,4},{-1,0}};
+		print(minTimeToVisitAllPoints(a));
 	}
 	public static void print(Object o) {
-		System.out.println(o);
+		System.out.print(o);
 	}
 	public static void print(int[] a) {
 		print("[");
@@ -296,5 +287,64 @@ public class ArrayLeetcode {
 	                    sameFlag = true;
 		        }
 		     return (decFlag ^ incFlag) || sameFlag && !(decFlag && incFlag);
+	    }
+	   	
+	/*Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 
+	 * as one sorted array.
+
+	Note:
+	
+	The number of elements initialized in nums1 and nums2 are m and n respectively.
+	You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.
+	Example:
+	
+	Input:
+	nums1 = [1,2,3,0,0,0], m = 3
+	nums2 = [2,5,6],       n = 3
+	
+	Output: [1,2,2,3,5,6]*/
+	  	
+	   	public static void merge(int[] nums1, int m, int[] nums2, int n) {
+	        for(int i = 0; i < n; i ++) {
+	        	nums1[i+m] = nums2[i];
+	        }
+	        Arrays.sort(nums1);
+	    }
+/*On a plane there are n points with integer coordinates points[i] = [xi, yi]. 
+ * Your task is to find the minimum time in seconds to visit all points.
+You can move according to the next rules:
+In one second always you can either move vertically, horizontally by one unit or diagonally (it means to move one unit vertically and one unit horizontally in one second).
+You have to visit the points in the same order as they appear in the array.
+
+Example 1:
+Input: points = [[1,1],[3,4],[-1,0]]
+Output: 7
+Explanation: One optimal path is [1,1] -> [2,2] -> [3,3] -> [3,4] -> [2,3] -> [1,2] -> [0,1] -> [-1,0]   
+Time from [1,1] to [3,4] = 3 seconds 
+Time from [3,4] to [-1,0] = 4 seconds
+Total time = 7 seconds
+Example 2:
+
+Input: points = [[3,2],[-2,2]]
+Output: 5
+Constraints:
+
+points.length == n
+1 <= n <= 100
+points[i].length == 2
+-1000 <= points[i][0], points[i][1] <= 1000*/
+	   	
+	   	public static int minTimeToVisitAllPoints(int[][] points) {
+	        int[] disX = new int[points.length-1];
+	        int[] disY = new int[points.length-1];
+	        for(int i = 1; i < points.length; i++) {
+	        	disX[i-1] = Math.abs(points[i-1][0]-points[i][0]);
+	        	disY[i-1] = Math.abs(points[i-1][1]-points[i][1]);
+	        }
+	        int distance = 0;
+	        for(int i = 0; i < disX.length; i ++) {
+	        	distance += Math.max(disX[i],disY[i]);
+	        }
+	        return distance;
 	    }
 }
