@@ -6,7 +6,6 @@ public class DayThree1 {
 		var a = new IntegerArrayMath();
 		a.integerDivision();
 	}
-
 }
 class NonIntResultException extends Exception{
 	
