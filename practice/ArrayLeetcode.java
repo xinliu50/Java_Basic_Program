@@ -11,14 +11,11 @@ public class ArrayLeetcode {
 //		int []a = {9,6,4,2,3,5,7,0,1};
 //		print(missingNumber(a));
 //		print(missingNumberXOR(a));
-		int[] a = {2,2,2,2};
-		print(isMonotonic(a));
-		int birth = 7*60*60*24*365;
-		int death = 13*60*60*24*365;
-		int immigrant = 45*60*60*24*365;
-		print(birth);
-		print(death);
-		print(immigrant);
+		Address a = new Address(484,"Brooklyn");
+		
+		String b = a.toString();
+		print(b);
+		
 	}
 	public static void print(Object o) {
 		System.out.println(o);
