@@ -6,18 +6,21 @@ public class Daytwo2 {
 	public static void main(String[]args) {
 		Person mike = new Person("Mike", "Brooklyn, NY", "736528293", "Mike@yahoo.com");
 		println(mike);
-		
+
 		Student Amy = new Student("Amy", "Mahattan NY", "43873873", "Amy@gmail.com", "Senior");
 		println(Amy);
-		
+
 		Employee Miya = new Employee("Miya", "Mahattan NY", "28386838", "miya@gmail.com", "M27",5000, new Date());
 		println(Miya);
-		
+
 		Faculty wu = new Faculty("wu", "Mahattan NY", "38682883", "wu@gmail.com", "N12",3000, new Date(), "4:30-7:30",2);
 		println(wu);
-		
+
 		Staff chen = new Staff("chen", "Mahattan NY", "28638638", "chen@gmail.com", "N12",4000, new Date(), "Professor");
 		println(chen);
+		
+		
+		
 	}
 	public static void print(Object o) {
 		System.out.print(o);
