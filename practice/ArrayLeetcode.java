@@ -1,12 +1,10 @@
 package practice;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 public class ArrayLeetcode {
 	public static void main(String []args) {
-		int[][] a = {{1,1},{3,4},{-1,0}};
-		print(minTimeToVisitAllPoints(a));
+		System.out.println(fibLoop(19));
 	}
 	public static void print(Object o) {
 		System.out.print(o);
@@ -346,5 +344,96 @@ points[i].length == 2
 	        	distance += Math.max(disX[i],disY[i]);
 	        }
 	        return distance;
+	    }
+	   	/*Given an array of size n, find the majority element. The majority element is 
+	   	 * the element that appears more than ⌊ n/2 ⌋ times.
+		You may assume that the array is non-empty and the majority element always exist in the array
+		Example 1:
+		
+		Input: [3,2,3]
+		Output: 3
+		Example 2:
+		
+		Input: [2,2,1,1,1,2,2]
+		Output: 2*/
+	   	public static int majorityElement(int[] nums) {
+	        var map = new HashMap<Integer,Integer>();
+	        for(int i : nums) {
+	        	if(map.containsKey(i)) {
+	        		map.put(i, map.get(i)+1);
+	        	}else {
+	        		map.put(i, 1);
+	        	}
+	        }
+	        
+	        var list = new ArrayList<Integer>();
+	        for(int i : map.values()) {
+	        	list.add(i);
+	        }
+	        Collections.sort(list);
+	        int max = list.get(list.size()-1);
+	        for(int i : map.keySet()) {
+	        	if(map.get(i) == max)
+	        		return i;
+	        }
+	        return -1;
+	    }
+	   	public static int majorityElementLoop(int[] nums) {
+	   		int max = nums.length/2;
+	   		for(int i : nums) {
+	   			int count = 0;
+	   			for(int num : nums) {
+	   				if( i == num ) {
+	   					count ++;
+	   				}
+	   				if(count > max)
+	   					return i;
+	   			}
+	   		}
+	   		return -1;
+	   	}
+	   	public static int majorityElementSort(int[] nums) {
+	   		Arrays.sort(nums);
+	   		return nums[nums.length/2];
+	   	}
+	   	/*The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, 
+	   	 * such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
+		F(0) = 0,   F(1) = 1
+		F(N) = F(N - 1) + F(N - 2), for N > 1.
+		Given N, calculate F(N).	
+		Example 1:		
+		Input: 2
+		Output: 1
+		Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.
+		Example 2:	
+		Input: 3
+		Output: 2
+		Explanation: F(3) = F(2) + F(1) = 1 + 1 = 2.
+		Example 3:
+		
+		Input: 4
+		Output: 3
+		Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.	
+		Note:	
+		0 ≤ N ≤ 30.* */
+	    public static int fib(int n) {
+	        if(n == 0)
+	        	return 0;
+	        if(n == 1)
+	        	return 1;
+	        return fib(n-1) + fib(n-2);
+	    }
+	    public static int fibLoop(int N) {
+	    	if(N == 0)
+	    		return 0;
+	    	if(N == 1)
+	    		return 1;
+	        int[] a = new int[N+1];
+	        a[0] = 0;
+	        a[1] = 1;
+	        for(int i = 2; i <= N; i ++) {
+	        	a[i] = a[i-1]+a[i-2];
+	        }
+	        return a[N];
 	    }
 }
