@@ -5,15 +5,9 @@ import java.util.*;
 public class ArrayLeetcode {
 	
 	public static void main(String []args) {
-		 int year = 2019;
-		 int month = 2;
-		 int date = 1;
-		 Calendar d = new GregorianCalendar(2020,0,30,13,24,56);
-		 System.out.println(d.getTime());
-		 System.out.println(d.get(Calendar.DATE));
-		 System.out.println(d.get(Calendar.DAY_OF_MONTH));
-		 System.out.println(d.get(Calendar.DAY_OF_WEEK));
-		 System.out.println(d.get(Calendar.DAY_OF_YEAR));
+		int a = 1;
+		System.out.println(++a);
+		System.out.println(a);
 	}
 	
 	/*Given an array A of integers, return true if and only if it is a valid mountain array.
@@ -475,23 +469,91 @@ points[i].length == 2
 		
 		The given dates are valid dates between the years 1971 and 2100.*/
 	    public static String dayOfTheWeek(int day, int month, int year) {
-	        Date d = new Date(year,month-1,day,2,34,1);
-	       
-	        int c = d.getDay();
-	        if(c == 0)
+	    	Calendar d = new GregorianCalendar(year,month-1,day,13,24,56);
+	        int c = d.get(Calendar.DAY_OF_WEEK);
+	        if(c == 1)
 	        	return "Sunday";
-	        if(c == 1) {
+	        if(c == 2) {
 	        	return "Monday";
 	        }
-	        if(c == 2)
-	        	return "Tuesday";
 	        if(c == 3)
-	        	return "Wednesday";
+	        	return "Tuesday";
 	        if(c == 4)
-	        	return "Thursday";
+	        	return "Wednesday";
 	        if(c == 5)
+	        	return "Thursday";
+	        if(c == 6)
 	        	return "Friday";
 	        
 	        return "Saturday";	        
+	    }
+	    /*A matrix is Toeplitz if every diagonal from top-left to bottom-right has 
+	     * the same element.
+	Now given an M x N matrix, return True if and only if the matrix is Toeplitz.
+		Example 1:
+		
+		Input:
+		matrix = [
+		  [1,2,3,4],
+		  [5,1,2,3],
+		  [9,5,1,2]
+		]
+		Output: True
+		Explanation:
+		In the above grid, the diagonals are:
+		"[9]", "[5, 5]", "[1, 1, 1]", "[2, 2, 2]", "[3, 3]", "[4]".
+		In each diagonal all elements are the same, so the answer is True.
+		Example 2:
+		
+		Input:
+		matrix = [
+		  [1,2],
+		  [2,2]
+		]
+		Output: False
+		Explanation:
+		The diagonal "[1, 2]" has different elements.
+		
+		Note:
+		
+		matrix will be a 2D array of integers.
+		matrix will have a number of rows and columns in range [1, 20].
+		matrix[i][j] will be integers in range [0, 99].*/
+	    public static boolean isToeplitzMatrix(int[][] matrix) {
+	        for(int i = 0; i < matrix.length; i ++) {
+	        	for(int j = 0; j < matrix[0].length; j++) {
+	        		int i1 = i;
+        			int j1 = j;
+	        		while(i1-1 >= 0 && j1-1 >= 0){
+	        			if(matrix[i][j] != matrix[i1-1][j1-1])
+	        				return false;
+	        			i1--;
+	        			j1--;
+	        		}
+	        		i1 = i;
+	        		j1 = j;
+	        		while(i1+1 < matrix.length && j1+1 < matrix[0].length){
+	        			if(matrix[i][j] != matrix[i1+1][j1+1])
+	        				return false;
+	        			i1++;
+	        			j1++;
+	        		}
+	        	}
+	        }
+	        return true;
+	    }
+	    
+	    public static boolean isToeplitzMatrixCompareToBelowRight(int[][] matrix) {
+	        for(int i = 0; i < matrix.length; i ++){
+	            for(int j = 0; j < matrix[0].length; j++){
+	                if(i+1 < matrix.length && j+1 <matrix[0].length){
+	                   if(matrix[i][j] != matrix[i+1][j+1])
+	                    {
+	                       return false;
+	                   }
+	                }
+	            }
+	        }
+	                return true;
 	    }
 }

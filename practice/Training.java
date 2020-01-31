@@ -129,12 +129,12 @@ class Student1 implements Comparable{
 	
 }
 
-class Gen{
-	int []a = {1,3,4,5};
-	public <E> void print() {
-		
-	}
-	public static<E> E get(int index) {
-		
-	}
-}
+//class Gen{
+//	int []a = {1,3,4,5};
+//	public <E> void print() {
+//		
+//	}
+//	public static<E> E get(int index) {
+//		
+//	}
+//}
