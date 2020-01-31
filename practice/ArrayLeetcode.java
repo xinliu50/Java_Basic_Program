@@ -3,18 +3,19 @@ package practice;
 import java.util.*;
 
 public class ArrayLeetcode {
+	
 	public static void main(String []args) {
-		System.out.println(fibLoop(19));
+		 int year = 2019;
+		 int month = 2;
+		 int date = 1;
+		 Calendar d = new GregorianCalendar(2020,0,30,13,24,56);
+		 System.out.println(d.getTime());
+		 System.out.println(d.get(Calendar.DATE));
+		 System.out.println(d.get(Calendar.DAY_OF_MONTH));
+		 System.out.println(d.get(Calendar.DAY_OF_WEEK));
+		 System.out.println(d.get(Calendar.DAY_OF_YEAR));
 	}
-	public static void print(Object o) {
-		System.out.print(o);
-	}
-	public static void print(int[] a) {
-		print("[");
-		for(int i : a)
-			print(i + ", ");
-		print("]\n");
-	}
+	
 	/*Given an array A of integers, return true if and only if it is a valid mountain array.
 
 	Recall that A is a mountain array if and only if:
@@ -435,5 +436,62 @@ points[i].length == 2
 	        	a[i] = a[i-1]+a[i-2];
 	        }
 	        return a[N];
+	    }
+	    public static int fibNum(int N) {
+	    	if(N == 0)
+	    		return 0;
+	    	if(N == 1)
+	    		return 1;
+	    	int a = 0;
+	    	int b = 1;
+	    	int c;
+	    	
+	    	for(int i = 2; i <= N; i ++) {
+	    		c = a + b;
+	    		a = b;
+	    		b = c;
+	    	}
+	    	return b;
+	    }
+	    /*Given a date, return the corresponding day of the week for that date.
+		The input is given as three integers representing the day, month and year respectively.
+		
+		Return the answer as one of the following values {"Sunday", "Monday", "Tuesday", "Wednesday", 
+		"Thursday", "Friday", "Saturday"}.
+	
+		Example 1:
+		Input: day = 31, month = 8, year = 2019
+		Output: "Saturday"
+		Example 2:
+		
+		Input: day = 18, month = 7, year = 1999
+		Output: "Sunday"
+		Example 3:
+		
+		Input: day = 15, month = 8, year = 1993
+		Output: "Sunday"
+		
+		Constraints:
+		
+		The given dates are valid dates between the years 1971 and 2100.*/
+	    public static String dayOfTheWeek(int day, int month, int year) {
+	        Date d = new Date(year,month-1,day,2,34,1);
+	       
+	        int c = d.getDay();
+	        if(c == 0)
+	        	return "Sunday";
+	        if(c == 1) {
+	        	return "Monday";
+	        }
+	        if(c == 2)
+	        	return "Tuesday";
+	        if(c == 3)
+	        	return "Wednesday";
+	        if(c == 4)
+	        	return "Thursday";
+	        if(c == 5)
+	        	return "Friday";
+	        
+	        return "Saturday";	        
 	    }
 }
