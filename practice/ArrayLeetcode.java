@@ -5,7 +5,15 @@ import java.util.*;
 public class ArrayLeetcode {
 	
 	public static void main(String []args) {
-		char a = a;
+		int []a= {-2,1,-3,4,-1,2,1,-5,4};
+		print(maxSubArrayReturnSub(a));
+	}
+	public static void print(int[]a) {
+		for(int i = 0; i < a.length; i ++) 
+			System.out.print(a[i] + ", ");
+	}
+	
+	/*char a = 97;
 		int b = 90;
 		System.out.println(a);
 		System.out.println(b);
@@ -17,9 +25,7 @@ public class ArrayLeetcode {
 		char b1 = (char)b;
 		char a2 = a;
 		System.out.println(a2);
-		//System.out.println(b1);
-	}
-	
+		//System.out.println(b1);*/
 	/*Given an array A of integers, return true if and only if it is a valid mountain array.
 
 	Recall that A is a mountain array if and only if:
@@ -626,6 +632,219 @@ points[i].length == 2
 	    }
 	    
 	    public static List<String> commonChars(String[] A) {
-	        
+	    	int[] before = new int[26];
+        	for(int j = 0; j < A[0].length(); j ++) {
+        		before[A[0].charAt(j)-'a'] += 1;
+        	}
+	    	
+	        for(int i = 1; i < A.length; i++) {
+	        	int[] after = new int[26];
+	        	for(int j = 0; j < A[i].length(); j++) {
+	        		after[A[i].charAt(j)-'a'] += 1;
+	        	}
+	        	int[] result = new int[26];
+	        	for(int k = 0; k < 26; k ++) {
+	        		result[k] = Math.min(before[k], after[k]);
+	        	}
+	        	before = result;
+	        }
+	        var ls = new ArrayList<String>();
+	        for(int i = 0; i < 26; i ++) {
+	        	for(int j = 0; j < before[i]; j ++) {
+	        		ls.add((char)(i+'a')+"");	
+	        	}
+	        }
+	        return ls;
+	    }
+	    
+	    public static List<String> commonCharsOpmize(String[] A) {    	
+	    	int[] before = new int[26];
+	    	Arrays.fill(before, Integer.MAX_VALUE);
+	    
+	    	for(int i = 0; i < A.length; i ++) {
+	    		int []after = new int[26];
+	    		for(int j = 0; j < A[i].length(); j ++) {
+	    			if(before[A[i].charAt(j)-'a'] != 0) {
+	    				after[A[i].charAt(j)-'a'] += 1;
+	    			}
+	    		}
+	    		for(int j = 0; j < 26; j ++) {
+	    			before[j] = Math.min(before[j], after[j]);
+	    		}
+	    	}
+	    	
+	    	var list = new ArrayList<String>();
+	    	for(int i = 0; i < 26; i ++) {
+	    		for(int j = 0; j < before[i]; j ++) {
+	    			list.add((char)(i+'a')+"");
+	    		}
+	    	}
+	    	return list;
+	    }
+	    /*We have an array A of integers, and an array queries of queries.
+	For the i-th query val = queries[i][0], index = queries[i][1], we add val to A[index].  
+	Then, the answer to the i-th query is the sum of the even values of A.
+	(Here, the given index = queries[i][1] is a 0-based index, and each query permanently
+	modifies the array A.)
+	Return the answer to all queries.  Your answer array should have answer[i] as the answer 
+	to the i-th query.
+	Example 1:
+	
+	Input: A = [1,2,3,4], queries = [[1,0],[-3,1],[-4,0],[2,3]]
+	Output: [8,6,2,4]
+	Explanation: 
+	At the beginning, the array is [1,2,3,4].
+	After adding 1 to A[0], the array is [2,2,3,4], and the sum of even values is 2 + 2 + 4 = 8.
+	After adding -3 to A[1], the array is [2,-1,3,4], and the sum of even values is 2 + 4 = 6.
+	After adding -4 to A[0], the array is [-2,-1,3,4], and the sum of even values is -2 + 4 = 2.
+	After adding 2 to A[3], the array is [-2,-1,3,6], and the sum of even values is -2 + 6 = 4.
+	Note:
+	
+	1 <= A.length <= 10000
+	-10000 <= A[i] <= 10000
+	1 <= queries.length <= 10000
+	-10000 <= queries[i][0] <= 10000
+	0 <= queries[i][1] < A.length*/
+	    
+	    //reach to time limit
+	    public static int[] sumEvenAfterQueries(int[] A, int[][] queries) {
+	    	int []result = new int[queries.length];
+	    	for(int i = 0; i < queries.length; i ++){
+	    		A[queries[i][1]] += queries[i][0];
+	    		int total = 0;
+	    		for(int j = 0; j < A.length; j ++){
+	    			if(A[j] % 2 == 0){
+	    				total += A[j];
+	    			}
+	    		}
+	    		result[i] = total;
+	    	}
+	    	return result;
+	    }
+	    //remember even total of A all the time
+	    public static int[] sumEvenAfterQueriesOptimize(int[] A, int[][] queries) {
+	        int even = 0;
+	        for(int i = 0; i < A.length; i ++){
+	             if(A[i] % 2 == 0){
+	                    even += A[i];
+	              }
+	        }
+	        int []result = new int[queries.length];
+	        for(int i = 0; i < queries.length; i ++){
+	            int before = A[queries[i][1]];
+	            A[queries[i][1]] += queries[i][0];     
+	            if(before%2 == 0 && A[queries[i][1]]%2 != 0){
+	                even -= before;
+	            }else if(before%2 == 0){
+	                 even -= before;
+	                 even += A[queries[i][1]];
+	            }else if(before%2 != 0 && A[queries[i][1]]%2 == 0){
+	                even += A[queries[i][1]];
+	            }
+	            result[i] = even;
+	        }
+	        return result;
+	    }
+	    /*Given a 2D grid of size m x n and an integer k. You need to shift the 
+		 * grid k times.
+	In one shift operation:
+	Element at grid[i][j] moves to grid[i][j + 1].
+	Element at grid[i][n - 1] moves to grid[i + 1][0].
+	Element at grid[m - 1][n - 1] moves to grid[0][0].
+	Return the 2D grid after applying shift operation k times.
+	Example 1:
+		
+	Input: grid = [[1,2,3],[4,5,6],[7,8,9]], k = 1
+	Output: [[9,1,2],[3,4,5],[6,7,8]]
+	Example 2:
+	Input: grid = [[3,8,1,9],[19,7,2,5],[4,6,11,10],[12,0,21,13]], k = 4
+	Output: [[12,0,21,13],[3,8,1,9],[19,7,2,5],[4,6,11,10]]
+	Example 3:
+	
+	Input: grid = [[1,2,3],[4,5,6],[7,8,9]], k = 9
+	Output: [[1,2,3],[4,5,6],[7,8,9]]*/
+	    
+	    public static List<List<Integer>> shiftGrid(int[][] grid, int k) {
+	        int m = grid.length;
+	        int n = grid[0].length;
+	        int[][]result = new int[m][n];
+	        for(int i = 0; i < m; i ++){
+	            for(int j = 0; j < n; j ++){
+	            	if((j+k) > n-1) {
+	            		result[(i+(j+k)/n)%m][(j+k)%n] = grid[i][j];
+	            	}
+	            	else {
+	            		result[i][j+k] = grid[i][j];
+	            	}
+	           
+	            }
+	        }
+	        var ls = new ArrayList<List<Integer>>();
+	         for(int i = 0; i < m; i ++){
+	             var temp = new ArrayList<Integer>();
+	            for(int j = 0; j < n; j ++){
+	                temp.add(result[i][j]);
+	            }
+	            ls.add(temp);
+	        }
+	        return ls;
+	    }
+	    public static List<List<Integer>> shiftGridInPlace(int[][] grid, int k) {
+	       int prev = grid[grid.length-1][grid[0].length];
+	       for(int i = 0; i < grid.length; i ++) {
+	    	   for(int j = 0; j < grid[0].length; j ++) {
+	    		   int temp = grid[i][j];
+	    		   grid[i][j] = prev;
+	    		   prev = temp;
+	    	   }
+	       }
+	       var ls = new ArrayList<List<Integer>>();
+	       for(int []r : grid) {
+	    	   var temp = new ArrayList<Integer>();
+	    	   ls.add(temp);
+	    	   for(int num : r)
+	    		   temp.add(num);
+	       }
+	       return ls;
+	    }
+	    /*Given an integer array nums, find the contiguous subarray (containing at 
+	     * least one number) which has the largest sum and return its sum.
+		Example:
+		
+		Input: [-2,1,-3,4,-1,2,1,-5,4],
+		Output: 6
+		Explanation: [4,-1,2,1] has the largest sum = 6.*/
+	    public static int maxSubArray(int[] nums) {
+	        int max_current = nums[0];
+	        int max_so_far = nums[0];
+	        for(int i = 1; i < nums.length; i ++) {
+	        	max_current = Math.max(nums[i], nums[i]+ max_current);
+	        	max_so_far = Math.max(max_current, max_so_far);
+	        }
+	        return max_so_far;
+	    }
+	    public static int[] maxSubArrayReturnSub(int[] nums){
+	    	int current = nums[0];
+	    	int soFar = nums[0];
+	    	int left = 0;
+	    	int right = 0;
+	    	for(int i = 1; i < nums.length; i ++) {
+	    		if(current+nums[i] > nums[i]) {
+	    			current = current+nums[i];
+	    		}else {
+	    			left = i;
+	    			current = nums[i];
+	    		}
+	    		if(current > soFar) {
+	    			right = i;
+	    			soFar = current;
+	    		}
+	    	}
+	    	int[] re = new int[right-left+1];
+	    	for(int i = left; i <= right; i ++) {
+	    		re[i-left] = nums[i];
+	    	}
+	    	return re;
 	    }
 }
+
