@@ -846,5 +846,85 @@ points[i].length == 2
 	    	}
 	    	return re;
 	    }
+/*Given a list of dominoes, dominoes[i] = [a, b] is equivalent to dominoes[j] = [c, d] 
+ * if and only if either (a==c and b==d), or (a==d and b==c) - that is, one domino can be 
+ * rotated to be equal to another domino.
+Return the number of pairs (i, j) for which 0 <= i < j < dominoes.length, and dominoes[i] 
+is equivalent to dominoes[j].
+Example 1:
+
+Input: dominoes = [[1,2],[2,1],[3,4],[5,6]]
+Output: 1
+ 
+
+Constraints:
+
+1 <= dominoes.length <= 40000
+1 <= dominoes[i][j] <= 9*/
+	    public static int numEquivDominoPairs(int[][] dominoes) {
+	        if(dominoes.length == 1)
+	            return 0;
+	        int total = 0;
+	        for(int i = 0; i < dominoes.length; i ++){
+	         for(int j = i+1; j < dominoes.length; j ++){
+	if(dominoes[i][0]* dominoes[i][1] == dominoes[j][0]* dominoes[j][1] &&
+	  dominoes[i][0]+ dominoes[i][1] == dominoes[j][0]+ dominoes[j][1])
+	            total += 1;
+	         }
+	        }
+	        return total;
+	    }
+	    
+/*In a list of songs, the i-th song has a duration of time[i] seconds. 
+
+Return the number of pairs of songs for which their total duration in seconds is 
+divisible by 60.  Formally, we want the number of indices i < j with (time[i] + time[j]) % 60 == 0.
+Example 1:
+
+Input: [30,20,150,100,40]
+Output: 3
+Explanation: Three pairs have a total duration divisible by 60:
+(time[0] = 30, time[2] = 150): total duration 180
+(time[1] = 20, time[3] = 100): total duration 120
+(time[1] = 20, time[4] = 40): total duration 60
+Example 2:
+
+Input: [60,60,60]
+Output: 3
+Explanation: All three pairs have a total duration of 120, which is divisible by 60.
+ 
+Note:
+
+1 <= time.length <= 60000
+1 <= time[i] <= 500*/
+	    //bruce force reach to time limit 
+	    public static int numPairsDivisibleBy60(int[] time) {
+	    	int total = 0;
+	    	for(int i = 0; i < time.length; i ++) {
+	    		for(int j = i+1; j < time.length; j ++) {
+	    			if((time[i] + time[j])%60 == 0)
+	    				total += 1;
+	    		}
+	    	}
+	    	return total;
+	    }
+	    //remember mol
+	    public static int numPairsDivisibleBy60Mol(int[] time) {
+	    	int[] mol = new int[60];
+	    	for(int i = 0; i < time.length; i ++) {
+	    		mol[time[i]%60] += 1;
+	    	}
+	    	int total = 0;
+	    	if(mol[30] != 0)
+	    		total += (mol[30] * (mol[30]-1))/2;
+	    	if(mol[0] != 0)
+	    		total += (mol[0] * (mol[0]-1))/2;
+	    	
+	    	for(int i = 1; i < 30; i ++) {
+	    		if(mol[i] != 0 && mol[60-i] != 0)
+	    			total += mol[i]*mol[60-i];
+	    	}
+	    	return total;
+	    }
 }
 
