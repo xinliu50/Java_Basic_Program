@@ -926,5 +926,89 @@ Note:
 	    	}
 	    	return total;
 	    }
+	    /*Given a sorted array nums, remove the duplicates in-place such that each element appear 
+	     * only once and return the new length.
+		Do not allocate extra space for another array, you must do this by modifying the input array 
+		in-place with O(1) extra memory.
+		Example 1:
+Given nums = [1,1,2],
+Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.
+It doesn't matter what you leave beyond the returned length.
+
+Example 2:
+Given nums = [0,0,1,1,1,2,2,3,3,4],
+Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3,
+and 4 respectively.
+It doesn't matter what values are set beyond the returned length.
+
+Clarification:
+Confused why the returned value is an integer but your answer is an array?
+Note that the input array is passed in by reference, which means modification to the input array will be 
+known to the caller as well.
+
+Internally you can think of this:
+// nums is passed in by reference. (i.e., without making a copy)
+int len = removeDuplicates(nums);
+
+// any modification to nums in your function would be known by the caller.
+// using the length returned by your function, it prints the first len elements.
+for (int i = 0; i < len; i++) {
+    print(nums[i]);
+}*/
+	    public static int removeDuplicates(int[] nums) {
+	        if(nums.length == 0)
+	            return 0;         
+	        int i = 0;
+	        for(int j = 1; j < nums.length; j ++){
+	            if(nums[i] != nums[j]){
+	                nums[i+1] = nums[j];
+	                i++;
+	            }
+	        }
+	        return i+1;
+	    }
+	   /*On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).
+	Once you pay the cost, you can either climb one or two steps. You need to find minimum cost to reach 
+	the top of the floor, and you can either start from the step with index 0, or the step with index 1.
+	
+	Example 1:
+	Input: cost = [10, 15, 20]
+	Output: 15
+	Explanation: Cheapest is start on cost[1], pay that cost and go to the top.
+	Example 2:
+	Input: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+	Output: 6
+	Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3].
+	Note:
+	cost will have a length in the range [2, 1000].
+	Every cost[i] will be an integer in the range [0, 999].
+	    * */ 
+	    public static int minCostClimbingStairs(int[] cost) {
+	        int f1 = 0, f2 = 0;
+	        for(int i = cost.length-1; i >= 0; i --){
+	            int f0 = cost[i] + Math.min(f1,f2);
+	            f2 = f1;
+	            f1 = f0;
+	        }
+	        return Math.min(f1,f2);
+	    }
+	    //forward 
+	    public static int minCostClimbingStairsForward(int[] cost) {
+	        int f1 = 0, f2 = 0;
+	        for(int i = 0; i < cost.length; i ++){
+	            int f0 = cost[i] + Math.min(f1,f2);
+	            f2 = f1;
+	            f1 = f0;
+	        }
+	        return Math.min(f1,f2);
+	    }
+	    //remember cost in place
+	    public int minCostClimbingStairsInPlace(int[] cost) {
+	        for(int i = 2; i < cost.length; i ++){
+	            cost[i] += Math.min(cost[i-1],cost[i-2]);
+	        }
+	         return Math.min(cost[cost.length-1],cost[cost.length-2]);
+	     }
+	    
 }
 
