@@ -1,16 +1,34 @@
 package practice;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ArrayLeetcode {
 	
 	public static void main(String []args) {
-		int []a= {-2,1,-3,4,-1,2,1,-5,4};
-		print(maxSubArrayReturnSub(a));
+		var ls = new ArrayList<Integer>();
+		ls.add(1);
+		ls.add(9);
+		ls.add(3);
+		ls.add(2);
+		System.out.println(ls);
+		Integer[] intList = ls.toArray(new Integer[0]);
+		int[] a = Arrays.stream(intList).mapToInt(i->i).toArray();
+		int[] temp = new int[a.length];
+		System.arraycopy(a, 0, temp, 0, a.length);
+		print(a);
+		System.out.println("");
+		Arrays.sort(temp);
+		print(a);
+		
+		print(temp);
 	}
 	public static void print(int[]a) {
 		for(int i = 0; i < a.length; i ++) 
 			System.out.print(a[i] + ", ");
+	}
+	public static void print(Object o) {
+		System.out.println(o);
 	}
 	
 	/*char a = 97;
@@ -1010,5 +1028,178 @@ for (int i = 0; i < len; i++) {
 	         return Math.min(cost[cost.length-1],cost[cost.length-2]);
 	     }
 	    
+	    /*Given a m * n matrix mat of ones (representing soldiers) and zeros (representing civilians), 
+	     * return the indexes of the k weakest rows in the matrix ordered from the weakest to the 
+	     * strongest.
+A row i is weaker than row j, if the number of soldiers in row i is less than the number of soldiers 
+in row j, or they have the same number of soldiers but i is less than j. Soldiers are always stand in 
+the frontier of a row, that is, always ones may appear first and then zeros.
+Example 1:
+Input: mat = 
+[[1,1,0,0,0],
+ [1,1,1,1,0],
+ [1,0,0,0,0],
+ [1,1,0,0,0],
+ [1,1,1,1,1]], 
+k = 3
+Output: [2,0,3]
+Explanation: 
+The number of soldiers for each row is: 
+row 0 -> 2 
+row 1 -> 4 
+row 2 -> 1 
+row 3 -> 2 
+row 4 -> 5 
+Rows ordered from the weakest to the strongest are [2,0,3,1,4]
+Example 2:
+Input: mat = 
+[[1,0,0,0],
+ [1,1,1,1],
+ [1,0,0,0],
+ [1,0,0,0]], 
+k = 2
+Output: [0,2]
+Explanation: 
+The number of soldiers for each row is: 
+row 0 -> 1 
+row 1 -> 4 
+row 2 -> 1 
+row 3 -> 1 
+Rows ordered from the weakest to the strongest are [0,2,3,1]
+Constraints:
+
+m == mat.length
+n == mat[i].length
+2 <= n, m <= 100
+1 <= k <= m
+matrix[i][j] is either 0 or 1.*/
+	    public static int[] kWeakestRows(int[][] mat, int k) {
+	        int[] arry = new int[k];
+	        int index = 0;
+	        boolean []visit = new boolean[mat.length];
+	        boolean flag = false;
+	        for(int i = 0; i < mat[0].length; i ++){
+	            for(int j = 0; j < mat.length; j ++){
+	                if(!visit[j] && index < k && mat[j][i] == 0){
+	                    arry[index] = j;
+	                    visit[j] = true;
+	                    index ++;
+	                }else if(index >= k){
+	                    flag = true;
+	                    break;
+	                }
+	            }
+	        }
+	        if(!flag){
+	            for(int i = 0; i < visit.length; i ++){
+	                if(index <= arry.length-1 && !visit[i]){
+	                    arry[index] = i;
+	                    visit[i] = true;
+	                    index ++;
+	                }
+	            }
+	        }
+	        return arry;
+	    }
+	    /*Given an array of distinct integers arr, find all pairs of elements with the minimum 
+	     * absolute difference of any two elements. 
+		Return a list of pairs in ascending order(with respect to pairs), each pair [a, b] follows
+		a, b are from arr
+		a < b
+		b - a equals to the minimum absolute difference of any two elements in arr
+		Example 1:		
+		Input: arr = [4,2,1,3]
+		Output: [[1,2],[2,3],[3,4]]
+		Explanation: The minimum absolute difference is 1. List all pairs with difference equal to 1 
+		in ascending order.
+		Example 2:
+		Input: arr = [1,3,6,10,15]
+		Output: [[1,3]]
+		Example 3:		
+		Input: arr = [3,8,-10,23,19,-4,-14,27]
+		Output: [[-14,-10],[19,23],[23,27]]		
+		Constraints:	
+		2 <= arr.length <= 10^5
+		-10^6 <= arr[i] <= 10^6*/
+	    public static List<List<Integer>> minimumAbsDifference(int[] arr) {
+	        var ls = new ArrayList<List<Integer>>();
+	        Arrays.sort(arr);
+	        int prev = arr[0];
+	        int min = Integer.MAX_VALUE;
+	        for(int i = 1; i < arr.length; i ++){
+	            min = Math.min(min,arr[i]-prev);
+	            if(min == 1)
+	                break;
+	            prev = arr[i];
+	        }
+	        var set = new HashSet<Integer>();
+	        for(int i = 0; i < arr.length; i ++){
+	        	set.contains(arr[i]);
+	        }
+	        for(int i = 0; i < arr.length; i ++){
+	            if(set.contains(arr[i]+min)){
+	                var temp = new ArrayList<Integer>();
+	                temp.add(arr[i]);
+	                temp.add(arr[i]+min);
+	                ls.add(temp);
+	            }
+	        }
+	        return ls;
+	    }
+	    /*Given an array arr, replace every element in that array with the greatest element 
+	     * among the elements to its right, and replace the last element with -1.
+		 * After doing so, return the array.
+	     */
+	    public static int[] replaceElements(int[] arr) {
+	        int[] result = new int[arr.length];
+	        for(int i = 0; i <= arr.length-2; i ++){
+	            int max = Integer.MIN_VALUE;
+	            for(int j = i+1; j < arr.length; j ++){
+	                max = Math.max(arr[j],max);
+	            }
+	            result[i] = max;
+	        }
+	        result[result.length-1] = -1;
+	        return result;
+	    }
+	    
+	    /*Given a non-empty array of digits representing a non-negative integer, 
+	     * plus one to the integer.
+		The digits are stored such that the most significant digit is at the head of the list, 
+		and each element in the array contain a single digit.
+		You may assume the integer does not contain any leading zero, except the number 0 itself.
+		
+		Example 1:
+		
+		Input: [1,2,3]
+		Output: [1,2,4]
+		Explanation: The array represents the integer 123.
+		Example 2:
+		
+		Input: [4,3,2,1]
+		Output: [4,3,2,2]
+		Explanation: The array represents the integer 4321.*/
+	    
+	    public static int[] plusOne(int[] digits) {
+	        var ls = new ArrayList<Integer>();
+	        int c = 1;
+	        for(int i = digits.length-1; i >= 0; i --){
+	            if(digits[i]+c >= 10){
+	                ls.add(digits[i]+c-10);
+	                c = 1;
+	            }else{
+	                ls.add(digits[i]+c);
+	                c = 0;
+	            }
+	        }
+	        if(c == 1){
+	            ls.add(1);
+	        }
+	    
+	        Collections.reverse(ls);
+	        Integer[] a = ls.toArray(new Integer[0]);
+	        int[] result = Arrays.stream(a).mapToInt(i->i).toArray();
+	        return result;
+	    }
 }
 
